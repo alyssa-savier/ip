@@ -48,6 +48,10 @@ public class TaskManager {
         }
     }
 
+    /***
+     *
+     * @param inData
+     */
     public void executeCommand(String inData) {
         int inDataLength = inData.length();
         if (!Objects.equals(inData.toLowerCase(), "bye")) {
@@ -175,6 +179,9 @@ public class TaskManager {
 
     }
 
+    /**
+     * Prints all tasks in task list.
+     */
     public void listAll() {
         System.out.println("____________________________________________________________\n" +
                 "Here are the tasks in your list: ");
@@ -191,6 +198,9 @@ public class TaskManager {
         System.out.println("____________________________________________________________");
     }
 
+    /**
+     * Added todo task.
+     */
     public void toDoAddedMessage() {
         System.out.println(
                 "____________________________________________________________ \n"
@@ -203,6 +213,9 @@ public class TaskManager {
                         + "____________________________________________________________");
     }
 
+    /**
+     * Added deadline task.
+     */
     public void deadlineAddedMessage() {
         System.out.println(
                 "____________________________________________________________ \n"
@@ -215,6 +228,9 @@ public class TaskManager {
                         + "____________________________________________________________");
     }
 
+    /**
+     * Added event task.
+     */
     public void eventAddedMessage() {
         System.out.println(
                 "____________________________________________________________ \n"
@@ -227,6 +243,10 @@ public class TaskManager {
                         + "____________________________________________________________");
     }
 
+    /**
+     * Marks task as done.
+     * @param taskNo
+     */
     public void doneTaskMessage(int taskNo) {
         System.out.println(
                 "____________________________________________________________\n"
@@ -247,6 +267,10 @@ public class TaskManager {
                         + "____________________________________________________________");
     }
 
+    /**
+     * Finds words in taskList containing a keyword then prints it out.
+     * @param keywordList
+     */
     public void findListMessage(ArrayList<Task> keywordList) {
         String newList = "";
         for (int z = 0; z < keywordList.size(); z++) {
@@ -263,12 +287,18 @@ public class TaskManager {
                 + "\n____________________________________________________________");
     }
 
+    /**
+     * Prints error message for unknown command.
+     */
     public void errorUnknownCommandMessage() {
         System.out.println("____________________________________________________________\n" +
                 "☹ OOPS!!! I'm sorry, but I don't know what that means :-(\n" +
                 "____________________________________________________________");
     }
 
+    /**
+     * Prints farewell message upon receiving bye command.
+     */
     public void byeMessage() {
         System.out.println(
                 "____________________________________________________________ \n"
@@ -276,12 +306,19 @@ public class TaskManager {
                         + "____________________________________________________________");
     }
 
+    /**
+     * Prints error message for empty description of a task.
+     * @param task
+     */
     public void errorEmptyMessage(String task) {
         System.out.println("____________________________________________________________\n" +
                 "☹ OOPS!!! The description of a " + task + " cannot be empty.\n" +
                 "____________________________________________________________");
     }
 
+    /**
+     * Invalid task number entered in for done command.
+     */
     public void errorInvalidTaskNo() {
         System.out.println(
                 "____________________________________________________________ \n"
@@ -289,6 +326,11 @@ public class TaskManager {
                         + "\n____________________________________________________________");
     }
 
+    /**
+     * Checks if a string is numeric.
+     * @param string
+     * @return
+     */
     public static boolean isNumeric(String string) {
         int intValue;
 
@@ -305,12 +347,24 @@ public class TaskManager {
         return false;
     }
 
+    /**
+     * Overwrites string to a txt file
+     * @param filePath
+     * @param textToAdd
+     * @throws IOException
+     */
     public static void writeToFile(String filePath, String textToAdd) throws IOException {
         FileWriter fw = new FileWriter(filePath);
         fw.write(textToAdd);
         fw.close();
     }
 
+    /**
+     * Appends string to a txt file
+     * @param filePath
+     * @param textToAppend
+     * @throws IOException
+     */
     private static void appendToFile(String filePath, String textToAppend) throws IOException {
         FileWriter fw = new FileWriter(filePath, true); // create a FileWriter in append mode
         fw.write(System.lineSeparator() + textToAppend);
