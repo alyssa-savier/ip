@@ -1,5 +1,7 @@
 import java.io.*;
+import java.lang.reflect.Array;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Locale;
 import java.util.Objects;
 
@@ -118,6 +120,18 @@ public class TaskManager {
                         }
                     }
                 }
+            } else if (inData.contains("find ")) {
+                if (Objects.equals(inData.substring(0, 5), "find ")) {
+                    String[] segments = inData.split(" ");
+                    String keyword = segments[1];
+                    ArrayList<Task> keywordList = new ArrayList<>();
+                    for (int k = 0; k < i; k++) {
+                        if (taskList[k].getDescription().contains(keyword)) {
+                            keywordList.add(taskList[k]);
+                        }
+                    }
+                findListMessage(keywordList);
+                }
             } else {
                 errorUnknownCommandMessage();
             }
@@ -132,21 +146,21 @@ public class TaskManager {
                         done = "0|";
                     }
                     if (taskList[k].getTask() == "T") {
-                        String command = done + k + 1 + "|todo " + taskList[k].getDescription();
+                        String command = done + (k + 1) + "|todo " + taskList[k].getDescription();
                         if (k == 0) {
                             writeToFile(path, command);
                         } else {
                             appendToFile(path, command);
                         }
                     } else if (taskList[k].getTask() == "D") {
-                        String command = done + k + 1+ "|deadline " + taskList[k].getDescription() + "/by " + taskList[k].getDateNum();
+                        String command = done + (k + 1) + "|deadline " + taskList[k].getDescription() + "/by " + taskList[k].getDateNum();
                         if (k == 0) {
                             writeToFile(path, command);
                         } else {
                             appendToFile(path, command);
                         }
                     } else if (taskList[k].getTask() == "E") {
-                        String command = done + k + 1+ "|event " + taskList[k].getDescription() + "/at " + taskList[k].getDateNum();
+                        String command = done + (k + 1) + "|event " + taskList[k].getDescription() + "/at " + taskList[k].getDateNum();
                         if (k == 0) {
                             writeToFile(path, command);
                         } else {
@@ -231,6 +245,22 @@ public class TaskManager {
                         + "\n"
                         + "Now you have " + (i - 1) + " tasks in the list.\n"
                         + "____________________________________________________________");
+    }
+
+    public void findListMessage(ArrayList<Task> keywordList) {
+        String newList = "";
+        for (int z = 0; z < keywordList.size(); z++) {
+            Task task = keywordList.get(z);
+            if (z == 0) {
+                newList = (z + 1) + ". " + "[" + task.getTask() + "]" + "[" + task.getStatusIcon() + "] " + task.getDescription();
+            } else {
+                newList = newList + "\n" + (z + 1) + ". " + "[" + task.getTask() + "]" + "[" + task.getStatusIcon() + "] " + task.getDescription();
+            }
+        }
+        System.out.println("Here are the matching tasks in your list: \n"
+                + "____________________________________________________________\n"
+                + newList
+                + "\n____________________________________________________________");
     }
 
     public void errorUnknownCommandMessage() {
